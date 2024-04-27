@@ -5,6 +5,10 @@
         starship.enable = lib.mkEnableOption "enable starship";
     };
     config = lib.mkIf config.starship.enable {
+        programs.fish.interactiveShellInit= ''
+            starship init fish | source;
+            '';
+
         programs.starship = {
             enable = true;
             settings = 

@@ -1,6 +1,9 @@
 {pkgs,lib,config, ... }:
 {
-
+    imports = [
+       ./starship.nix
+       ./cli.nix
+    ];
     options ={
         fish.enable = lib.mkEnableOption "enables fish";
     };
@@ -12,12 +15,8 @@
                 fishPlugins.forgit
                 fishPlugins.hydro
                 fishPlugins.grc
-                done
-                fzf
-                ripgrep
                 grc
-                procps
-                neofetch
+                fastfetch
         ];
         programs.bash = {
             enable = true;
@@ -30,12 +29,14 @@
                         ''; 
         };
         programs.fish = {
+
             enable = true;
-            interactiveShellInit = ''
-            starship init fish | source;
+            
+            interactiveShellInit= ''
             set fish_greeting; # Disable greeting
-            neofetch;
+            fastfetch;
             '';
+
             plugins = [
                 { name = "grc"; src = pkgs.fishPlugins.grc.src; }
                 { name = "done"; src = pkgs.fishPlugins.done.src; }
@@ -43,6 +44,17 @@
                 { name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
                 { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
             ];
+
+            functions = {
+
+            };
+
+            shellAbbrs = {
+
+            };
+            
+
+
         };
         programs.kitty.shellIntegration.enableFishIntegration = true;
     };

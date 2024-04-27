@@ -6,8 +6,7 @@
     home.stateVersion = "23.11";
 
     imports = [
-    ../../modules/home-manager/terminal/fish.nix
-    ../../modules/home-manager/terminal/starship.nix
+        ../../modules/home-manager/configs.nix
     ];
     home.packages = [
         (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode"]; })

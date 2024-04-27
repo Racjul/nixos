@@ -76,6 +76,7 @@ nix.settings.experimental-features = ["nix-command" "flakes"];
 # Installed Packages
 environment.systemPackages = with pkgs; [
     home-manager
+    nh
 
     # wayland / hyprland dependencies
     hyprland
@@ -100,6 +101,8 @@ environment.systemPackages = with pkgs; [
     blueman
 
     # Packages Manager / Installer
+    kdePackages.qt6ct
+    qt6.full
     gnumake
     nodejs_21
     cargo
