@@ -4,14 +4,20 @@
         ./terminal/fish.nix
         ./terminal/starship.nix
         ./terminal/cli.nix
+        ./terminal/kitty.nix
 
+        # Hyprland application
         ./hyprland/waybar.nix
         
     ];
     config = {
+        # Terminal settings
         starship.enable = true;
         fish.enable = true;
-        cli.enable =true;
+        cli.enable = true;
+        kitty.enable = true;
+
+        # Hyprland app settings
         waybar.enable = true;
     };
 }

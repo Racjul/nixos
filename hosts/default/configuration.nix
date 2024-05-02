@@ -98,7 +98,6 @@
 # For bluetooth and wifi:
             networkmanagerapplet
             blueman
-            mpd
 
 # Packages Manager / Installer
             kdePackages.qt6ct
