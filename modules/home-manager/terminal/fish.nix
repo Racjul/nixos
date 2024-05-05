@@ -1,8 +1,8 @@
 {pkgs,lib,config, ... }:
 {
     imports = [
-       ./starship.nix
-       ./cli.nix
+        ./starship.nix
+            ./cli.nix
     ];
     options ={
         fish.enable = lib.mkEnableOption "enables fish";
@@ -16,6 +16,7 @@
                 fishPlugins.hydro
                 fishPlugins.grc
                 grc
+                nix-your-shell
                 fastfetch
         ];
         programs.bash = {
@@ -26,23 +27,28 @@
                         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
                         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
                         fi
-                        ''; 
+
+                       
+                                ''; 
         };
         programs.fish = {
 
             enable = true;
-            
+
             interactiveShellInit= ''
-            set fish_greeting; # Disable greeting
-            fastfetch;
+                set fish_greeting; # Disable greeting
+                fastfetch;
+                 if command -q nix-your-shell
+                            nix-your-shell fish | source
+                                end
             '';
 
             plugins = [
-                { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-                { name = "done"; src = pkgs.fishPlugins.done.src; }
-                { name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
-                { name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
-                { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+            { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+            { name = "done"; src = pkgs.fishPlugins.done.src; }
+            { name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
+            { name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
+            { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
             ];
 
             functions = {
@@ -52,8 +58,7 @@
             shellAbbrs = {
 
             };
-            
-
+           
 
         };
         programs.kitty.shellIntegration.enableFishIntegration = true;

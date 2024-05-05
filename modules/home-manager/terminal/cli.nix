@@ -6,24 +6,33 @@
     config = lib.mkIf config.cli.enable{
         home.packages = with pkgs;[
             done
-            fzf
-            ripgrep
-            procps
-            bat
-            zoxide
-            lsd
+                fzf
+                ripgrep
+                procps
+                bat
+                zoxide
+                lsd
+                wget
+                unzip
+                git
+                xz
+
         ];
         programs.fish = {
 
             interactiveShellInit =''
                 zoxide init fish | source;
+                alias cd z
             '';
             shellAbbrs  = {
-                ls = "lsd";
-                cat = "bat";
-                cd = "z";
 
             };
+            shellAliases = {
+                ls = "lsd";
+                cat = "bat";
+            };
+
+
         };
     };
 }
