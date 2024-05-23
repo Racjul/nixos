@@ -6,6 +6,7 @@
     config = lib.mkIf config.cli.enable{
         home.packages = with pkgs;[
             done
+                usbutils
                 fzf
                 ripgrep
                 procps

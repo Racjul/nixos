@@ -37,7 +37,7 @@
 
             interactiveShellInit= ''
                 set fish_greeting; # Disable greeting
-                fastfetch;
+                #fastfetch;
                  if command -q nix-your-shell
                             nix-your-shell fish | source
                                 end

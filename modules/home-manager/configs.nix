@@ -8,7 +8,11 @@
 
         # Hyprland application
         ./hyprland/waybar.nix
-        
+
+        # Neovim config
+        ./nvim/nvim.nix
+
+
     ];
     config = {
         # Terminal settings
@@ -19,6 +23,10 @@
 
         # Hyprland app settings
         waybar.enable = true;
+
+        # Neovim settings
+        nvim.enable = true;
+
     };
 }
 

@@ -7,6 +7,7 @@
 
     imports = [
         ../../modules/home-manager/configs.nix
+        inputs.nix-colors.homeManagerModules.default
     ];
     home.packages = [
         (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode"]; })
@@ -20,8 +21,7 @@
     };
 
     programs.home-manager.enable = true;
+
+    colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
     
-    # Enable modules:
-    fish.enable = true;
-    starship.enable = true;
 }
