@@ -65,6 +65,8 @@
         xclip
         wl-clipboard
 
+        #For Copilot
+        nodejs_21
 
       ];
 
@@ -82,11 +84,11 @@
         cmp-path
         cmp-buffer
         luasnip
-        nvim-copilot
-        copilot-cmp
         friendly-snippets
         lspkind-nvim
+        copilot-cmp
 
+        # Other
         dressing-nvim
         which-key-nvim 
         vim-nix
@@ -94,9 +96,9 @@
         tagbar
         undotree
         vim-fugitive
-
         vim-be-good
         harpoon
+
         # Wich-key plugin to indicate keymaps while using nvim
         {
           plugin = which-key-nvim;
@@ -180,8 +182,18 @@
           plugin = gitsigns-nvim;
           config = toLuaFile ./plugin/gitsigns.lua;
         }
-        
-  
+
+        {
+          plugin = nvim-copilot;
+          config = toLua"
+          require(\"copilot\").setup({
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+          })
+          ";
+        }
+
+
 
       ];
 
