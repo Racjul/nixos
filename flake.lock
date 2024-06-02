@@ -89,16 +89,16 @@
     "nvim-copilot": {
       "flake": false,
       "locked": {
-        "lastModified": 1716003697,
-        "narHash": "sha256-JIpuvQbT0PXo1u1HAjVSnQpek7zAwgRKEOUnzzd7Luc=",
-        "owner": "github",
-        "repo": "copilot.vim",
-        "rev": "25feddf8e3aa79f0573c8f43ddb13c44c530cfa5",
+        "lastModified": 1709095198,
+        "narHash": "sha256-JX3sdsnOnjkY7r9fCtC2oauo0PXF3SQ+SHUo8ifBvAc=",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "f7612f5af4a7d7615babf43ab1e67a2d790c13a6",
         "type": "github"
       },
       "original": {
-        "owner": "github",
-        "repo": "copilot.vim",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
         "type": "github"
       }
     },

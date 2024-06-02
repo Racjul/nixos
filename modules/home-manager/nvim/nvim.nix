@@ -4,6 +4,7 @@
   options = {
     nvim.enable = lib.mkEnableOption "enable nvim tools";
   };
+  
   config = lib.mkIf config.nvim.enable{
     nixpkgs = {
       overlays = [
@@ -14,10 +15,12 @@
               name = "solarized-osaka";
               src = inputs.solarized-osaka;
             };
+
             nvim-tree= prev.vimUtils.buildVimPlugin {
               name = "nvim-tree";
               src = inputs.nvim-tree;
             };
+
             nvim-copilot= prev.vimUtils.buildVimPlugin {
               name = "nvim-copilot";
               src = inputs.nvim-copilot;
@@ -27,6 +30,7 @@
         })
       ];
     };
+
     programs.neovim = 
     let
       toLua = str: "lua << EOF\n${str}\nEOF\n";
@@ -72,7 +76,6 @@
 
       plugins = with pkgs.vimPlugins; [
 
-        neodev-nvim
         # Telescope dependencies
         telescope-fzf-native-nvim
         plenary-nvim
@@ -88,7 +91,9 @@
         lspkind-nvim
         copilot-cmp
 
+
         # Other
+        neodev-nvim
         dressing-nvim
         which-key-nvim 
         vim-nix
@@ -98,6 +103,11 @@
         vim-fugitive
         vim-be-good
         harpoon
+        colorizer
+
+        # Because of broken package
+        nvim-treesitter-parsers.typescript
+        nvim-treesitter-parsers.java
 
         # Wich-key plugin to indicate keymaps while using nvim
         {
@@ -152,7 +162,6 @@
             p.tree-sitter-nix
             p.tree-sitter-cpp
             p.tree-sitter-rust
-            p.tree-sitter-tsx
             p.tree-sitter-javascript
             p.tree-sitter-html
             p.tree-sitter-css
@@ -170,7 +179,7 @@
         # Best theme
         {
           plugin = solarized-osaka;
-          config = "colorscheme solarized-osaka";
+          config = toLuaFile ./plugin/solarized-osaka.lua;
         }
 
         # Nvim-tree for file navigation
@@ -178,11 +187,14 @@
           plugin = nvim-tree;
           config = toLuaFile ./plugin/nvim-tree.lua;
         }
+
+        # Gitsigns plugin for git integration
         {
           plugin = gitsigns-nvim;
           config = toLuaFile ./plugin/gitsigns.lua;
         }
 
+        # Copilot plugin for code suggestion
         {
           plugin = nvim-copilot;
           config = toLua"
@@ -193,15 +205,15 @@
           ";
         }
 
-
+        # Toggleterm plugin for terminal
+        {
+          plugin = toggleterm-nvim;
+          config = toLua "require('toggleterm').setup{}";
+        }
 
       ];
 
-
-
-
     };
-
 
   };
 }

@@ -16,7 +16,7 @@
         nvim-tree.url = "github:nvim-tree/nvim-tree.lua";
         nvim-tree.flake = false;
 
-        nvim-copilot.url = "github:github/copilot.vim";
+        nvim-copilot.url = "github:zbirenbaum/copilot.lua";
         nvim-copilot.flake = false;
 
     };

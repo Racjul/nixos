@@ -68,6 +68,8 @@ users.users.julienracette = {
     discord-screenaudio
     jetbrains.idea-ultimate
     vscode
+    postman
+    burpsuite
     sublime-merge
     teams-for-linux
   ];
@@ -94,7 +96,6 @@ environment.systemPackages = with pkgs; [
 # wayland / hyprland dependencies
 hyprland
 hyprpaper
-rofi-wayland
 hyprpicker
 
 # Notification
@@ -115,6 +116,9 @@ python3
 playerctl
 pavucontrol
 
+#Screen Capture
+grim
+slurp
 
 
 

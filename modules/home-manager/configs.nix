@@ -12,6 +12,8 @@
         # Neovim config
         ./nvim/nvim.nix
 
+        # Rofi config
+        ./rofi/rofi.nix
 
     ];
     config = {
@@ -26,6 +28,9 @@
 
         # Neovim settings
         nvim.enable = true;
+
+        # Rofi settings
+        rofi.enable = true;
 
     };
 }

@@ -1,0 +1,151 @@
+* {
+    main-bg:            #1E1D2F;
+    main-fg:            #D9E0EE;
+    main-br:            #ABE9B3;
+    main-ex:            #F28FAD;
+    select-bg:          #7AA2F7;
+    select-fg:          #1E1D2F;
+    separatorcolor:     transparent;
+    border-color:       transparent;
+}
+
+configuration {
+    modi:                        "drun,filebrowser,window,recursivebrowser";
+    show-icons:                  true;
+    display-drun:                " ";
+    display-filebrowser:         " ";
+    display-window:              " ";
+    display-recursivebrowser:    " ";
+    drun-display-format:         "{name}";
+    window-format:               "{w}{t}";
+    font:                        "JetBrainsMono Nerd Font 12";
+    icon-theme:                  "Dracula";
+}
+
+window {
+    height:                      32em;
+    width:                       30em;
+    spacing:                     0em;
+    padding:                     0em;
+    border-color:                @main-br;
+    background-color:            @main-bg;
+    border-radius:               1em;
+    border:                      0.1em;
+}
+
+mainbox {
+    enabled:                     true;
+    spacing:                     0em;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listbox" , "mode-switcher" ];
+    background-color:            transparent;
+}
+
+
+listbox {
+    spacing:                     0em;
+    padding:                     1em;
+    margin:                      0em 0em 0em 0.5em;
+    children:                    [ "listview"];
+    background-color:            transparent;
+}
+
+listview {
+    enabled:                     true;
+    spacing:                     0em;
+    margin:                      0em 0em  0em 1em;
+    padding:                     0.5em;
+    columns:                     1;
+    lines:                       8;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    expand:                      false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    cursor:                      "default";
+    background-color:            @main-bg;
+    text-color:                  @main-fg;
+    border-radius:               1em;
+}
+
+
+mode-switcher{
+    orientation:                 horizontal;
+    enabled:                     true;
+    spacing:                     1em;
+    padding:                     0em 2em 2em 2em;
+    background-color:            transparent;
+}
+
+button {
+    padding:                     1em;
+    cursor:                      pointer;
+    border-radius:               3em;
+    background-color:            @main-bg;
+    text-color:                  @main-fg;
+}
+
+button selected {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+
+inputbar {
+    enabled:                     true;
+    width:                       10em;
+    margin:                      1em 0em 1em 0em;
+    children:                    [ "prompt", "entry" ];
+    background-color:            @main-bg;
+}
+
+prompt {
+    enabled:                     true;
+    text-color:                  @select-bg;
+    background-color:            @main-bg;
+    margin:                      0em 0em 0em 0.5em;
+    padding:                     0.7em 0em 0em 0em;
+    font :                       "JetBrainsMono Nerd Font 22";
+}
+
+entry {
+    enabled:                     true;
+    text-color:                  @select-fg;
+    background-color:            @select-bg;
+    border-radius:               1em;
+    padding:                     0.5em;
+    margin:                      0.5em 2em 0em 0em;
+}
+
+element {
+    enabled:                     true;
+    spacing:                     1em;
+    padding:                     0.3em;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  @main-fg;
+}
+
+element selected.normal {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+    border-radius:               1em;
+}
+
+element-icon {
+    size:                        2em;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+

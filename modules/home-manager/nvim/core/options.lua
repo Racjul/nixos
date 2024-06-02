@@ -31,7 +31,6 @@ vim.opt.cursorline = true -- highlight the current cursor line
 
 -- turn off swapfile
 vim.opt.swapfile = false
-vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 
 

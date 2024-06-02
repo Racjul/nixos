@@ -1,5 +1,4 @@
 { config, pkgs,inputs, ... }:
-
 {
     home.username = "julienracette";
     home.homeDirectory = "/home/julienracette";
@@ -10,10 +9,12 @@
         inputs.nix-colors.homeManagerModules.default
     ];
     home.packages = [
+        pkgs.jdk21
         (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode"]; })
     ];
 
     home.file = {
+      "SDKs/Java/21".source = pkgs.jdk21.home;
     };
 
     home.sessionVariables = {
