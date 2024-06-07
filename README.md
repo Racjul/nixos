@@ -5,7 +5,7 @@ My current nixos configuration using home-manager and Nix flakes.
 ## Install
 If you want to use my config you can type those commands on nixos:
 ```bash
-cd  git clone https://github.com/Racjul/nixos  && cd nixos
+git clone https://github.com/Racjul/nixos  && cd nixos
 ```
 Change the username in the  and the home directory in the './hosts/default/home.nix' file then type:
 
