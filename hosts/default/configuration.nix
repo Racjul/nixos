@@ -54,12 +54,12 @@ services.pipewire = {
 
 };
 
-users.users.julienracette = {
+users.users.julienr = {
   isNormalUser = true;
   description = "JulienRacette";
   extraGroups = [ "networkmanager" "wheel" ];
   packages = with pkgs; [
-    firefox-wayland
+    firefox
     obsidian
     vlc
     obs-studio
@@ -77,7 +77,7 @@ users.users.julienracette = {
 home-manager = {
   extraSpecialArgs = {inherit inputs;};
   users ={
-    "julienracette" = import ./home.nix;
+    "julienr" = import ./home.nix;
   };
 
 };
