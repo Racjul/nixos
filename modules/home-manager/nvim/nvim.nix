@@ -25,10 +25,15 @@
               name = "nvim-copilot";
               src = inputs.nvim-copilot;
             };
-
+  
           };
         })
       ];
+    };
+
+    home.file.".config/nvim/snippets" = {
+      source = ./snippets;
+      recursive = true;
     };
 
     programs.neovim = 
@@ -46,6 +51,13 @@
       ${builtins.readFile ./core/options.lua}
       ${builtins.readFile ./core/remaps.lua}
       '';
+      extraConfig = ''
+      " Load custom snippets
+      lua << EOF
+      require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
+      EOF
+
+   '';
       extraPackages = with pkgs; [
 
         # Language server
@@ -75,7 +87,7 @@
         #For vimtex
         mupdf       # PDF viewer
         texlive.combined.scheme-full  # Full LaTeX distribution
-        latexmk       # LaTeX compilation tool
+        texliveFull       # LaTeX compilation tool
 
       ];
 
@@ -214,6 +226,12 @@
         {
           plugin = vimtex;
           config = toLuaFile ./plugin/vimtex.lua;
+        }
+
+        #Luasnip
+        {
+          plugin = luasnip;
+          config = toLuaFile ./plugin/luasnip.lua;
         }
 
         # Toggleterm plugin for terminal
