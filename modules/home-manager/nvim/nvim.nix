@@ -72,6 +72,11 @@
         #For Copilot
         nodejs_21
 
+        #For vimtex
+        mupdf       # PDF viewer
+        texlive.combined.scheme-full  # Full LaTeX distribution
+        latexmk       # LaTeX compilation tool
+
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -203,6 +208,12 @@
             panel = { enabled = false },
           })
           ";
+        }
+
+        #Vimtex
+        {
+          plugin = vimtex;
+          config = toLuaFile ./plugin/vimtex.lua;
         }
 
         # Toggleterm plugin for terminal

@@ -25,12 +25,15 @@
 
         # Hyprland app settings
         waybar.enable = true;
+        hyprland.enable =true;
 
         # Neovim settings
         nvim.enable = true;
 
         # Rofi settings
         rofi.enable = true;
+
+
 
     };
 }
