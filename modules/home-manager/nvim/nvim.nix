@@ -51,13 +51,7 @@
       ${builtins.readFile ./core/options.lua}
       ${builtins.readFile ./core/remaps.lua}
       '';
-      extraConfig = ''
-      " Load custom snippets
-      lua << EOF
-      require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
-      EOF
-
-   '';
+      
       extraPackages = with pkgs; [
 
         # Language server
@@ -85,9 +79,8 @@
         nodejs_21
 
         #For vimtex
-        mupdf       # PDF viewer
-        texlive.combined.scheme-full  # Full LaTeX distribution
-        texliveFull       # LaTeX compilation tool
+        texlive.combined.scheme-full  
+        texliveFull       
 
       ];
 

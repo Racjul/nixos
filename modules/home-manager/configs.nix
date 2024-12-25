@@ -8,6 +8,7 @@
 
         # Hyprland application
         ./hyprland/waybar.nix
+        ./hyprland/hyprland.nix
 
         # Neovim config
         ./nvim/nvim.nix
@@ -25,6 +26,7 @@
 
         # Hyprland app settings
         waybar.enable = true;
+        hyprland.enable = true;
 
         # Neovim settings
         nvim.enable = true;
