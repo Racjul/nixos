@@ -72,6 +72,7 @@ users.users.julienr = {
     burpsuite
     sublime-merge
     teams-for-linux
+    mupdf
   ];
 };
 home-manager = {

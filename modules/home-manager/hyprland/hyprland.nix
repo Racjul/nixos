@@ -1,128 +1,110 @@
 {pkgs,lib,config, ...}:
 {
+
   options = {
     hyprland.enable = lib.mkEnableOption "enable hyprland";
   };
 
   config = lib.mkIf config.hyprland.enable{
-      
 
-  programs.hyprland = {
-    enable = true;
-    config = {
-      # Monitor Configuration
-      monitors = {
-        eDP-1 = {
-          resolution = "1920x1080";
-          refreshRate = 144;
-          position = "0x0";
-          scale = 1.0;
-        };
-      };
+    #Files for hyprpaper
+    home.file = {
+      "wallpapers/wallpaper.jpg" = {source = ./wallpapers/wallpaper.jpg;};
+      ".config/hypr/hyprpaper.conf" = {source = ./config/hyprpaper.conf;};
+    };
 
-      # Window Rules
-      windowRules = [
-        {
-          ruleType = "tile";
-          ruleValue = "title:.*\\.pdf.*";
-          floating = false;
-        }
+    home.packages = with pkgs; [
+      hyprpaper
+    ];
+
+    wayland.windowManager.hyprland = {
+      enable = true;
+
+      settings = {
+      # Mod key
+      "$mod" = "SUPER";
+
+      # Monitors
+      monitor = [
+        "eDP-1,1920x1080@144,0x0,1"
       ];
 
-      # Startup Applications
-      execOnce = [
+      # Window rules
+      windowrulev2 = [
+        "tile, title:.*\\.pdf.*, floating=0"
+        "suppressevent maximize, class:.*"
+      ];
+
+      # Execute at launch
+      exec-once = [
         "waybar"
+        "hyprpaper"
       ];
 
       # Variables
-      variables = {
-        terminal = "kitty";
-        fileManager = "dolphin";
-        menu = "rofi -show drun";
-        browser = "firefox";
-      };
+      "$terminal" = "kitty";
+      "$fileManager" = "dolphin";
+      "$menu" = "rofi -show drun";
+      "$browser" = "firefox";
+      "$moveactivewindow"=''grep -q "true" <<< $(hyprctl activewindow -j | jq -r .floating) && hyprctl dispatch moveactive'';
 
-      # Environment Variables
-      env = {
-        XCURSOR_SIZE = "24";
-        QT_QPA_PLATFORMTHEME = "qt5ct";
-      };
+      # Environment variables
+      env = [
+        "XCURSOR_SIZE,24"
+        "QT_QPA_PLATFORMTHEME,qt5ct"
+      ];
 
-      # Input Configuration
+      # Input settings
       input = {
-        kb_layout = "us";
-        follow_mouse = true;
+        kb_layout = "us,ca";
+        kb_options = "caps:swapescape";
+        follow_mouse = 1;
         touchpad = {
-          natural_scroll = false;
+          natural_scroll = "no";
         };
         sensitivity = 0;
       };
 
-      # General Settings
+      # General settings
       general = {
         gaps_in = 5;
         gaps_out = 20;
         border_size = 2;
-        col = {
-          active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          inactive_border = "rgba(595959aa)";
-        };
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
         layout = "dwindle";
-        allow_tearing = false;
+        allow_tearing = "false";
       };
 
-      # Decoration Settings
+      # Decoration settings
       decoration = {
         rounding = 10;
         blur = {
-          enabled = true;
+          enabled = "true";
           size = 3;
           passes = 1;
         };
-        drop_shadow = true;
+        drop_shadow = "yes";
         shadow_range = 4;
         shadow_render_power = 3;
-        col = {
-          shadow = "rgba(1a1a1aee)";
-        };
+        "col.shadow" = "rgba(1a1a1aee)";
       };
-
-      # Animations
       animations = {
-        enabled = true;
-        bezier = {
-          name = "myBezier";
-          points = [ 0.05 0.9 0.1 1.05 ];
-        };
-        presets = {
-          windows = {
-            duration = 1;
-            curve = "myBezier";
-            options = {};
-          };
-          windowsOut = {
-            duration = 1;
-            curve = "default";
-            options = { mode = "popin"; duration = "80%"; };
-          };
-          border = {
-            duration = 1;
-            curve = "default";
-            options = {};
-          };
-          fade = {
-            duration = 1;
-            curve = "default";
-            options = {};
-          };
-        };
-      };
-
-      # Dwindle Settings
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
+        enabled = "yes";
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        animation = [
+          "windows, 1, 7, myBezier"
+          "windowsOut, 1, 7, default, popin 80%"
+          "border, 1, 10, default"
+          "borderangle, 1, 8, default"
+          "fade, 1, 7, default"
+          "workspaces, 1, 6, default"
+        ];
+      };      # Layout settings
+    dwindle = {
+      pseudotile = "yes";
+      preserve_split = "yes";
+    };
 
       # Gestures
       gestures = {
@@ -131,25 +113,69 @@
 
       # Miscellaneous
       misc = {
-        force_default_wallpaper = -1;
+        force_default_wallpaper = "-1";
+        disable_splash_rendering = true;
       };
 
       # Keybindings
-      bindings = [
-        { mod = "SUPER"; key = "T"; action = "exec kitty"; }
-        { mod = "SUPER"; key = "Q"; action = "killactive"; }
-        { mod = "SUPER"; key = "M"; action = "exit"; }
-        { mod = "SUPER"; key = "E"; action = "exec dolphin"; }
-        { mod = "SUPER"; key = "V"; action = "togglefloating"; }
-        { mod = "SUPER"; key = "A"; action = "exec rofi -show drun"; }
-        { mod = "SUPER"; key = "F"; action = "exec firefox"; }
-        { mod = "SUPER"; key = "P"; action = "pseudo"; }
-        { mod = "SUPER"; key = "J"; action = "togglesplit"; }
-        # Add workspace bindings
-      ];
+      bind =
+        [
+          # Launch apps
+          "$mod, F, exec, $browser"
+          "$mod, T, exec, $terminal"
+          "$mod, E, exec, $fileManager"
+          "$mod, A, exec, pkill -x rofi || $menu"
+
+          # System actions
+          "$mod, Q, killactive"
+          "$mod, Delete, exit"
+          "$mod, W, togglefloating"
+          "Alt, Return, fullscreen"
+
+          # Group
+          "$mod, G, togglegroup"
+          "$mod CTRL , L, changegroupactive, f"
+          "$mod CTRL , H, changegroupactive, b"
+
+          # Move/Change window focus
+          "$mod, Left, movefocus, l"
+          "$mod, Right, movefocus, r"
+          "$mod, Up, movefocus, u"
+          "$mod, Down, movefocus, d"
+          "Alt, Tab, movefocus, d"
+
+          #Change kb language
+          ''$mod+SPACE, exec,hyprctl switchxkblayout at-translated-set-2-keyboard next''
+          "$mod+Ctrl, Right, workspace, r+1"
+          "$mod+Ctrl, Left, workspace, r-1"
+          "$mod+Ctrl+Alt, Right, movetoworkspace, r+1"
+          "$mod+Ctrl+Alt, Left, movetoworkspace, r-1"
+          "$mod+Alt, S, movetoworkspacesilent, special"
+          "$mod, S, togglespecialworkspace,"
+
+          "$mod SHIFT $CONTROL, left,exec, $moveactivewindow -30 0 || hyprctl dispatch movewindow l"
+          "$mod SHIFT $CONTROL, right,exec, $moveactivewindow 30 0 || hyprctl dispatch movewindow r"
+          "$mod SHIFT $CONTROL, up,exec, $moveactivewindow  0 -30 || hyprctl dispatch movewindow u"
+          "$mod SHIFT $CONTROL, down,exec, $moveactivewindow 0 30 || hyprctl dispatch movewindow d"
+
+          # Pseudo tiling
+          "$mod, P, pseudo"
+          "$mod, J, togglesplit"
+        ]
+        ++ (
+          # Dynamic workspace bindings (1-9)
+          builtins.concatLists (builtins.genList (i:
+          let ws = i + 1;
+          in [
+            "$mod, code:1${toString i}, workspace, ${toString ws}"
+            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+          ]
+          )
+          9)
+          );
+        };
+      };
     };
-  };
-};
-    
+
   }
- 
+

@@ -18,13 +18,14 @@
 
     ];
     config = {
+
         # Terminal settings
         starship.enable = true;
         fish.enable = true;
         cli.enable = true;
         kitty.enable = true;
 
-        # Hyprland app settings
+        # Hyprland and hyprland applications settings
         waybar.enable = true;
         hyprland.enable = true;
 
