@@ -145,7 +145,7 @@
           "Alt, Tab, movefocus, d"
 
           #Change kb language
-          ''$mod+SPACE, exec,hyprctl switchxkblayout at-translated-set-2-keyboard next''
+          "$mod, SPACE, exec,hyprctl switchxkblayout at-translated-set-2-keyboard next"
           "$mod+Ctrl, Right, workspace, r+1"
           "$mod+Ctrl, Left, workspace, r-1"
           "$mod+Ctrl+Alt, Right, movetoworkspace, r+1"
