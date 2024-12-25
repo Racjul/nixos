@@ -1,7 +1,7 @@
 { config, pkgs,inputs, ... }:
 {
-    home.username = "julienracette";
-    home.homeDirectory = "/home/julienracette";
+    home.username = "julienr";
+    home.homeDirectory = "/home/julienr";
     home.stateVersion = "23.11";
 
     imports = [

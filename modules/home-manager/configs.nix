@@ -8,6 +8,7 @@
 
         # Hyprland application
         ./hyprland/waybar.nix
+        ./hyprland/hyprland.nix
 
         # Neovim config
         ./nvim/nvim.nix
@@ -17,20 +18,24 @@
 
     ];
     config = {
+
         # Terminal settings
         starship.enable = true;
         fish.enable = true;
         cli.enable = true;
         kitty.enable = true;
 
-        # Hyprland app settings
+        # Hyprland and hyprland applications settings
         waybar.enable = true;
+        hyprland.enable = true;
 
         # Neovim settings
         nvim.enable = true;
 
         # Rofi settings
         rofi.enable = true;
+
+
 
     };
 }
