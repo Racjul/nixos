@@ -1,4 +1,4 @@
-vim.g.vimtex_view_method = "mupdf"
+vim.g.vimtex_view_method = "zathura"
 vim.opt.conceallevel = 2
 vim.g.Tex_GotoError = true
 vim.g.tex_conceal = 'abdmg'

@@ -36,3 +36,5 @@ vim.opt.updatetime = 50
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
+vim.g.maplocalleader = "\\"

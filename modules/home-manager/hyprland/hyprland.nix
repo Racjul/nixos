@@ -16,7 +16,7 @@
     home.packages = with pkgs; [
       hyprpaper
     ];
-
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
     wayland.windowManager.hyprland = {
       enable = true;
 
@@ -37,13 +37,16 @@
 
       # Execute at launch
       exec-once = [
-        "waybar"
         "hyprpaper"
+        "waybar"
+        "nm-applet &"
       ];
 
-      # Variables
+ 
+ # Variables
+      "$notes" = "obsidian";
       "$terminal" = "kitty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "rofi -show filebrowser";
       "$menu" = "rofi -show drun";
       "$browser" = "firefox";
       "$moveactivewindow"=''grep -q "true" <<< $(hyprctl activewindow -j | jq -r .floating) && hyprctl dispatch moveactive'';
@@ -64,8 +67,12 @@
         };
         sensitivity = 0;
       };
+      device ={
+        name = "epic mouse V1";
+        sensitivity = "-0.5";
+      };
 
-      # General settings
+    # General settings
       general = {
         gaps_in = 5;
         gaps_out = 20;
@@ -113,7 +120,7 @@
 
       # Miscellaneous
       misc = {
-        force_default_wallpaper = "-1";
+        force_default_wallpaper = "0";
         disable_splash_rendering = true;
       };
 
@@ -122,9 +129,10 @@
         [
           # Launch apps
           "$mod, F, exec, $browser"
+          "$mod, O, exec, $notes"
           "$mod, T, exec, $terminal"
-          "$mod, E, exec, $fileManager"
           "$mod, A, exec, pkill -x rofi || $menu"
+          "$mod, E, exec, pkill -x rofi || $fileManager"
 
           # System actions
           "$mod, Q, killactive"
@@ -157,7 +165,8 @@
           "$mod SHIFT $CONTROL, right,exec, $moveactivewindow 30 0 || hyprctl dispatch movewindow r"
           "$mod SHIFT $CONTROL, up,exec, $moveactivewindow  0 -30 || hyprctl dispatch movewindow u"
           "$mod SHIFT $CONTROL, down,exec, $moveactivewindow 0 30 || hyprctl dispatch movewindow d"
-
+          "$mod  SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy
+"
           # Pseudo tiling
           "$mod, P, pseudo"
           "$mod, J, togglesplit"

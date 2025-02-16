@@ -13,10 +13,6 @@
         (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode"]; })
     ];
 
-    home.file = {
-      "SDKs/Java/21".source = pkgs.jdk21.home;
-    };
-
     home.sessionVariables = {
         EDITOR = "nvim";
     };

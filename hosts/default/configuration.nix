@@ -34,7 +34,7 @@ networking.networkmanager = {
 
 # Set your time zone.
 time.timeZone = "America/Toronto";
-
+fonts.fonts = [ pkgs.cm_unicode ];
 # Select internationalisation properties.
 i18n.defaultLocale = "en_CA.UTF-8";
 
@@ -66,15 +66,10 @@ users.users.julienr = {
     thunderbird
     spotify
     discord-screenaudio
-    jetbrains.idea-ultimate
-    vscode
-    postman
-    burpsuite
-    sublime-merge
-    teams-for-linux
-    mupdf
+    zathura
   ];
 };
+
 home-manager = {
   extraSpecialArgs = {inherit inputs;};
   users ={
@@ -85,19 +80,17 @@ home-manager = {
 
 # Allow unfree packages
 nixpkgs.config.allowUnfree = true;
-
 # Allow Flakes and nix-command
 nix.settings.experimental-features = ["nix-command" "flakes"];
-
+programs.steam = {
+enable = true;
+remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+};
 # Installed Packages
 environment.systemPackages = with pkgs; [
   home-manager
   nh
-
-# wayland / hyprland dependencies
-hyprland
-hyprpaper
-hyprpicker
 
 # Notification
 dunst
@@ -120,7 +113,11 @@ pavucontrol
 #Screen Capture
 grim
 slurp
+wl-clipboard
 
+#app
+rstudio
+octave
 
 
             ];

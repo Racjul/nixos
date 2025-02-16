@@ -59,7 +59,7 @@ return {
         )
     ),
     -- \sqrt
-    s({trig="sqrt",snippetType="autosnippet"},
+    s({trig="sq",snippetType="autosnippet"},
         fmta(
             "\\sqrt{<>}",
             {
@@ -74,7 +74,7 @@ return {
         ),
         {condition = in_mathzone}
     ),
-s({trig="in",snippetType="autosnippet"},
+s({trig="iN",snippetType="autosnippet"},
         t(
             "\\in"
         ),
@@ -105,58 +105,36 @@ s({trig="ex",snippetType="autosnippet"},
     -- trig
     -- Examples of trigonometric function snippets
     s({trig="sin", snippetType="autosnippet"},
-        {
             t("\\sin"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="cos", snippetType="autosnippet"},
-        {
             t("\\cos"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="tan", snippetType="autosnippet"},
-        {
             t("\\tan"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="csc", snippetType="autosnippet"},
-        {
             t("\\csc"),
         { condition = in_mathzone }
-        }
-    ),
-    s({trig="sec", snippetType="autosnippet"},
-        {
-            t("\\sec"),
-        { condition = in_mathzone }
-        }
     ),
     s({trig="cot", snippetType="autosnippet"},
-        {
             t("\\cot"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="arcsin", snippetType="autosnippet"},
-        {
             t("\\arcsin"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="arccos", snippetType="autosnippet"},
-        {
             t("\\arccos"),
         { condition = in_mathzone }
-        }
     ),
     s({trig="arctan", snippetType="autosnippet"},
-        {
             t("\\arctan"),
         { condition = in_mathzone }
-        }
     ),
         s({trig="pro", snippetType="autosnippet"},
             fmta("\\probP[<>]",

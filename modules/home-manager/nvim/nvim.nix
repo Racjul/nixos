@@ -132,7 +132,9 @@
         # Autoclose-nvim to close bracket et parenthese automatically
         {
           plugin = autoclose-nvim;
-          config  = toLua "require(\"autoclose\").setup()";
+          config  = toLua "require(\"autoclose\").setup({keys = {[\"$\"] = { escape = true, close = true, pair = \"$$\", disabled_filetypes = {} },
+   },
+})";
         }
 
         # Lualine plugin for nice status bar

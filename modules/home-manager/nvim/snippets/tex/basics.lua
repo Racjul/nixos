@@ -107,9 +107,9 @@ return{
     s({trig="nN",snippetType="autosnippet", dscr="Expands 'eq' into an equation environment"},
         fmta(
             [[
-\begin{equation*}
+$$
     <>
-\end{equation*}]],
+$$]],
             { d(1,get_visual) }
         )
     ),
@@ -118,9 +118,9 @@ return{
     s({trig="mM",snippetType="autosnippet", dscr="Expands mm into an math environment"},
         fmta(
             [[
-\begin{math}
+$
     <>
-\end{math}]],
+$]],
             { d(1,get_visual) }
         )
     ),
