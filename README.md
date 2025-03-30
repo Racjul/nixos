@@ -14,10 +14,6 @@ Change the username in the  and the home directory in the './hosts/default/home.
 nixos-rebuild switch --flake .
 ```
 ## TODO & Coming soon ...
-* Add my hyprland .conf into nix files
-* Change GTK theme 
-* Create a dunst theme
-* Create a rofi theme
 * Create some nix-shell templates for basic project
 
 ## Credits
