@@ -41,8 +41,6 @@ i18n.defaultLocale = "en_CA.UTF-8";
 # Enable CUPS to print documents.
 services.printing.enable = true;
 
-# Enable sound with pipewire.
-sound.enable = true;
 hardware.pulseaudio.enable = false;
 security.rtkit.enable = true;
 services.pipewire = {
@@ -59,14 +57,14 @@ users.users.julienr = {
   description = "JulienRacette";
   extraGroups = [ "networkmanager" "wheel" ];
   packages = with pkgs; [
-    firefox
     obsidian
     vlc
     obs-studio
     thunderbird
     spotify
-    discord-screenaudio
+    webcord-vencord
     zathura
+    vscode-fhs
   ];
 };
 

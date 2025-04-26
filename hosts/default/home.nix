@@ -9,8 +9,9 @@
         inputs.nix-colors.homeManagerModules.default
     ];
     home.packages = [
-        pkgs.jdk21
-        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode"]; })
+      pkgs.jdk21
+      pkgs.nerd-fonts.jetbrains-mono
+      pkgs.nerd-fonts.fira-code
     ];
 
     home.sessionVariables = {
@@ -18,6 +19,7 @@
     };
 
     programs.home-manager.enable = true;
+    programs.firefox.enable = true;
 
     colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
     

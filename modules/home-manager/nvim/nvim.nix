@@ -15,13 +15,7 @@
               name = "solarized-osaka";
               src = inputs.solarized-osaka;
             };
-
-            nvim-tree= prev.vimUtils.buildVimPlugin {
-              name = "nvim-tree";
-              src = inputs.nvim-tree;
-            };
-
-            nvim-copilot= prev.vimUtils.buildVimPlugin {
+                        nvim-copilot= prev.vimUtils.buildVimPlugin {
               name = "nvim-copilot";
               src = inputs.nvim-copilot;
             };
@@ -58,13 +52,10 @@
         lua-language-server            
         nil
         emmet-ls
-        rocmPackages.llvm.clang-tools-extra
         tailwindcss-language-server
-        nodePackages.vscode-html-languageserver-bin
-        nodePackages.vscode-css-languageserver-bin
         nodePackages.typescript-language-server
         nodePackages.svelte-language-server
-        nodePackages.pyright
+        pyright
 
         # Text formating 
         nodePackages.prettier
@@ -76,7 +67,7 @@
         wl-clipboard
 
         #For Copilot
-        nodejs_21
+        nodejs_23
 
         #For vimtex
         texlive.combined.scheme-full  
@@ -192,12 +183,6 @@
         {
           plugin = solarized-osaka;
           config = toLuaFile ./plugin/solarized-osaka.lua;
-        }
-
-        # Nvim-tree for file navigation
-        {
-          plugin = nvim-tree;
-          config = toLuaFile ./plugin/nvim-tree.lua;
         }
 
         # Gitsigns plugin for git integration
