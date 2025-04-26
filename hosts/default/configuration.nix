@@ -1,136 +1,107 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs,inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+ imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    ({ config, lib, ... }: {
+      # Compatibility layer for older configurations
+      system.nixos.tags = ["latest"];
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    })
   ];
-
-# Bootloader
-boot.loader.systemd-boot.enable = true;
-boot.loader.efi.canTouchEfiVariables = true;
-
-networking.hostName = "nixos";
-
-services.xserver.enable = true ;
-services.desktopManager.plasma6.enable = true; 
-services.displayManager.sddm.wayland.enable = true;
-
-# Enable networking
-networking.networkmanager = {
-  enable = true;
-  settings = {
-    main = {
-      plugins = "keyfile";
+  boot = {
+  loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;  # Keep last 10 generations
+    };
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";  # Verify this matches your ESP mount
     };
   };
-
-}; 
-
-# Set your time zone.
-time.timeZone = "America/Toronto";
-fonts.packages = [ pkgs.cm_unicode ];
-# Select internationalisation properties.
-i18n.defaultLocale = "en_CA.UTF-8";
-
-# Enable CUPS to print documents.
-services.printing.enable = true;
-
-security.rtkit.enable = true;
-services.pipewire = {
-  enable = true;
-  alsa.enable = true;
-  alsa.support32Bit = true;
-  pulse.enable = true;
-  jack.enable = true;
-
+  
+  # Remove any GRUB-related configurations
+  initrd.supportedFilesystems = ["btrfs" "ext4"];
 };
 
-users.users.julienr = {
-  isNormalUser = true;
-  description = "JulienRacette";
-  extraGroups = [ "networkmanager" "wheel" ];
-  packages = with pkgs; [
-    obsidian
-    vlc
-    obs-studio
-    thunderbird
-    spotify
-    webcord-vencord
-    zathura
-    vscode-fhs
-  ];
-};
-
-home-manager = {
-  extraSpecialArgs = {inherit inputs;};
-  users ={
-    "julienr" = import ./home.nix;
+  networking.hostName = "nixos";
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      substituters = ["https://cache.nixos.org/"];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+    };
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
+  # Desktop configuration
+  services = {
+    xserver = {
+      enable = true;
+      displayManager = {
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
+        defaultSession = "plasma";
+      };
+      desktopManager.plasma6.enable = true;
+    };
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    pulseaudio.enable = false;  # Ensure PipeWire takes precedence
   };
 
-};
+  # Hardware configuration
+  hardware = {
+    pulseaudio.enable = false;
+    bluetooth.enable = true;
+  };
 
-# Allow unfree packages
-nixpkgs.config.allowUnfree = true;
-# Allow Flakes and nix-command
-nix.settings.experimental-features = ["nix-command" "flakes"];
-programs.steam = {
-enable = true;
-remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-};
-# Installed Packages
-environment.systemPackages = with pkgs; [
-  home-manager
-  nh
+  # User configuration
+  users.users.julienr = {
+    isNormalUser = true;
+    description = "JulienRacette";
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+  };
 
-# Notification
-dunst
-libnotify
+  # System-wide packages
+  environment.systemPackages = with pkgs; [
+    neovim
+    networkmanagerapplet
+    blueman
+    wl-clipboard
+    grim
+    slurp
+    fzf  # Added for neovim plugin dependency
+  ];
 
-# basic terminal tools
-neovim
+  # Fonts
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    cm_unicode
+  ];
 
-# For bluetooth and wifi:
-networkmanagerapplet
-blueman
+  # Hyprland configuration
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
-# Packages Manager / Installer
-kdePackages.qt6ct
-cargo
-python3
-playerctl
-pavucontrol
-
-#Screen Capture
-grim
-slurp
-wl-clipboard
-
-#app
-rstudio
-octave
-
-
-            ];
-
-
-# Before changing this value read the documentation for this option
-system.stateVersion = "23.11"; # Did you read the comment?
-
-# Enable Hyprland 
-programs.hyprland = {
-  enable = true;
-  xwayland.enable = true;
-};
-
-xdg.portal.enable = true;
-xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-environment.sessionVariables.NIX_OZONE_WL = "1";
+  system.stateVersion = "23.11";
 }
