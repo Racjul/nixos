@@ -34,14 +34,13 @@ networking.networkmanager = {
 
 # Set your time zone.
 time.timeZone = "America/Toronto";
-fonts.fonts = [ pkgs.cm_unicode ];
+fonts.packages = [ pkgs.cm_unicode ];
 # Select internationalisation properties.
 i18n.defaultLocale = "en_CA.UTF-8";
 
 # Enable CUPS to print documents.
 services.printing.enable = true;
 
-hardware.pulseaudio.enable = false;
 security.rtkit.enable = true;
 services.pipewire = {
   enable = true;

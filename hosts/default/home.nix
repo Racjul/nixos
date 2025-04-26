@@ -9,6 +9,7 @@
         inputs.nix-colors.homeManagerModules.default
     ];
     home.packages = [
+      pkgs.fzf
       pkgs.jdk21
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.nerd-fonts.fira-code
